@@ -13,6 +13,7 @@ engine.setProperty('voice', voices[0].id)
 
 
 def speak(text):
+    # Takes a string and converts it into audio
     engine.say(text)
     engine.runAndWait()
 
@@ -30,11 +31,13 @@ def wishMe():
 
 
 def takeCommand():
+    # Takes input from microphone and converts it into string
+
     r = speech_recognition.Recognizer()
     with speech_recognition.Microphone() as source:
         print('Listening...')
-        r.pause_threshold = 1
-        r.energy_threshold = 300
+        r.pause_threshold = 1   # Gap seconds while listening
+        r.energy_threshold = 300 # minimum audio energy to consider for recording
         r.adjust_for_ambient_noise(source, duration=1)
         audio = r.listen(source)
         try:
@@ -69,5 +72,5 @@ if __name__ == "__main__":
             strTime = datetime.datetime.now().strftime("%H:%M:%S")
             speak(f'Sir the time is {strTime}')
         elif 'open code' in query:
-            codePath = "C:\\Users\\Ehmad Saeed\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Visual Studio Code"
+            codePath = "C:\\Users\\Ehmad Saeed\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
             os.startfile(codePath)
